@@ -11,14 +11,12 @@ def sync_hs_codes():
         auth_token = frappe.db.get_single_value(
             "FBR E-Inv Setup", "pral_authorization_token"
         )
-        print("Access token found in DocType: FBR E-Inv Setup")
     # 2. Try .env File
     if not auth_token:
         # Load variables from .env file in the current directory (or site dir)
         # You might need to point to the specific path if it's not in root
         load_dotenv()
         auth_token = os.getenv("PRAL_AUTHORIZATION_TOKEN")
-        print("Access token found in .env")
     # 3. Fail Gracefully
     if not auth_token:
         print("WARNING: PRAL Access token not found. Skipping Sync.")
