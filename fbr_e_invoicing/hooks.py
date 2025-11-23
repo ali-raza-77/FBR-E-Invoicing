@@ -10,33 +10,31 @@ app_license = "mit"
 # Hook on document methods and events
 
 doc_events = {
-	"POS Invoice": {
-		"after_insert": "fbr_e_invoicing.api.pos_invoice_build_payload.get"
-	},
-	"Sales Invoice": {
-		"validate": "fbr_e_invoicing.api.fbr_validation.validate_fbr_fields",
-		"before_submit": "fbr_e_invoicing.api.fbr_validation.force_today_posting_date"
-	}
+    "POS Invoice": {
+        "after_insert": "fbr_e_invoicing.api.pos_invoice_build_payload.get"
+    },
+    "Sales Invoice": {
+        "validate": "fbr_e_invoicing.api.fbr_validation.validate_fbr_fields",
+        "before_submit": "fbr_e_invoicing.api.fbr_validation.force_today_posting_date",
+    },
 }
 
 # Scheduled Tasks
 # ---------------
 
 scheduler_events = {
-	# Process FBR queue every 15 minutes
-	"cron": {
-		"*/15 * * * *": [
-			"fbr_e_invoicing.api.fbr_queue.process_fbr_queue_scheduled"
-		]
-	},
-	# Cleanup old logs and queue items daily at 2 AM
-	# "daily": [
-	# 	"fbr_e_invoicing.api.fbr_maintenance.cleanup_old_records"
-	# ],
-	# Generate FBR reports weekly
-	# "weekly": [
-	# 	"fbr_e_invoicing.api.fbr_reports.generate_weekly_report"
-	# ]
+    # Process FBR queue every 15 minutes
+    "cron": {
+        "*/15 * * * *": ["fbr_e_invoicing.api.fbr_queue.process_fbr_queue_scheduled"]
+    },
+    # Cleanup old logs and queue items daily at 2 AM
+    # "daily": [
+    # 	"fbr_e_invoicing.api.fbr_maintenance.cleanup_old_records"
+    # ],
+    # Generate FBR reports weekly
+    # "weekly": [
+    # 	"fbr_e_invoicing.api.fbr_reports.generate_weekly_report"
+    # ]
 }
 
 # Custom permissions for FBR related doctypes
@@ -83,25 +81,25 @@ scheduler_events = {
 
 # Custom fields that should be searchable
 search_fields = {
-	"Sales Invoice": ["custom_fbr_invoice_number", "custom_fbr_status"],
-	"POS Invoice": ["custom_fbr_invoice_number", "custom_fbr_status"]
+    "Sales Invoice": ["custom_fbr_invoice_number", "custom_fbr_status"],
+    "POS Invoice": ["custom_fbr_invoice_number", "custom_fbr_status"],
 }
 
 # Dashboard charts for Desk
 dashboard_charts = [
-	{
-		"chart_name": "FBR Submissions",
-		"chart_type": "Line",
-		"doctype": "FBR Logs",
-		"filters_json": '{"status": "Success"}',
-		"source": "FBR Logs"
-	},
-	{
-		"chart_name": "FBR Queue Status",
-		"chart_type": "Donut",
-		"doctype": "FBR Queue",
-		"source": "FBR Queue"
-	}
+    {
+        "chart_name": "FBR Submissions",
+        "chart_type": "Line",
+        "doctype": "FBR Logs",
+        "filters_json": '{"status": "Success"}',
+        "source": "FBR Logs",
+    },
+    {
+        "chart_name": "FBR Queue Status",
+        "chart_type": "Donut",
+        "doctype": "FBR Queue",
+        "source": "FBR Queue",
+    },
 ]
 
 # Notifications
@@ -142,7 +140,7 @@ dashboard_charts = [
 # On app install/uninstall
 # -------------------------
 
-# after_install = "fbr_e_invoicing.install.after_install"
+after_install = "fbr_e_invoicing.install.after_install"
 # before_uninstall = "fbr_e_invoicing.uninstall.before_uninstall"
 
 # Backup hook - include FBR data in backups
@@ -159,7 +157,7 @@ include_in_backup = ["FBR Logs", "FBR Queue"]
 # 		"partial": 1,
 # 	},
 # 	{
-# 		"doctype": "FBR Queue", 
+# 		"doctype": "FBR Queue",
 # 		"filter_by": "owner",
 # 		"redact_fields": ["error_message", "fbr_response"],
 # 		"partial": 1,
